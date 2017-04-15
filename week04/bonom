@@ -1,0 +1,22 @@
+pen down
+put(270, 150, 180)
+for var = 0 to 180 do
+move(4, 2)
+end
+put(200, 80, 180)
+2
+for var = 0 to 45 do
+move(1, 8)
+end
+put(100, 80, 180)
+for var = 0 to 45 do
+move(1, 8)
+end
+put(180, 150, 180)
+for var = 0 to 45 do
+move(2, 4)
+end
+for x=0 to 100 do
+put(100+x, 190, 230-x*2)
+move(10, 0)
+end

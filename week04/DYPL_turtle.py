@@ -58,15 +58,12 @@ class DYPL_turtle:
                 tmp_angle += self.angle - next_angle.angle
                 self.x += next_angle.x
                 self.y += next_angle.y
-                self.application.setPixel(self.x, self.y)
+                self.application.setPixel(max(self.x, 0), max(self.y, 0))
     def parseExp(self, text):
-        my_little_turtle = self
-        self.put(150, 150, 45)
-        text = (re.sub(r"for (?P<var>\D.*)=(?P<begin>\d+) to (?P<end>\d+) do\n(?P<statement>.+)\nend", r"for \g<var> in range(\g<begin>,\g<end>):\n\t\g<statement>\n",text))
+        re.DOTALL = True
+        text = (re.sub(r"for (?P<var>\D.*) *= *(?P<begin>\d+) to (?P<end>\d+) do\n(?P<statement>((pen|move|turn|put).*\n)+)end", r"for \g<var> in range(\g<begin>,\g<end>):\n\t\g<statement>\n",text))
         text = re.sub(r"(?P<inst1>(pen|move|turn)) (?P<inst2>\D+)",r"\g<inst1>_\g<inst2>",text)
-        text = re.sub(r"(?P<inst1>(pen|move|turn|put))",r"my_little_turtle.\g<inst1>",text)
+        text = re.sub(r"(?P<inst1>(pen|move|turn|put))",r"self.\g<inst1>",text)
         text = re.sub(r"(?P<inst1>(pen|move)_\D+)(?P<esp>[\t|\n| ])",r"\g<inst1>()\g<esp>",text)
-        print(text)
+        # print(text)
         exec(text)
-
-my_little_turtle = DYPL_turtle(1)
