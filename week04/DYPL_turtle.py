@@ -18,15 +18,15 @@ class DYPL_turtle:
         self.x = 150
         self.y = 150
         self.angles = [
-            Angle(0, 0, 1),
-            Angle(45, 1, 1),
+            Angle(0, 0, -1),
+            Angle(45, 1, -1),
             Angle(90, 1, 0),
-            Angle(135, 1, -1),
-            Angle(180, 0, -1),
-            Angle(225, -1, -1),
+            Angle(135, 1, 1),
+            Angle(180, 0, 1),
+            Angle(225, -1, 1),
             Angle(270, -1, 0),
-            Angle(315, -1, 1),
-            Angle(360, 0, 1)
+            Angle(315, -1, -1),
+            Angle(360, 0, -1)
         ]
     def get_closest_angle(self, angle_):
         a = list(map(lambda x: abs(angle_ - x.angle), self.angles))
@@ -54,12 +54,15 @@ class DYPL_turtle:
         self.turn_cw(angle_)
         if (self.pen):
             tmp_angle = self.angle
-            for i in range (0, steps):
+            done = 0.0
+            while (done < steps):
+            # for i in range (0, steps):
                 next_angle = self.get_closest_angle(tmp_angle)
                 tmp_angle += self.angle - next_angle.angle
                 self.x += next_angle.x
                 self.y += next_angle.y
                 self.application.setPixel(max(self.x, 0), max(self.y, 0))
+                done += math.sqrt(abs(next_angle.x) + abs(next_angle.y))
     def parseExp(self, text):
         re.DOTALL = True
         text = (re.sub(r"for (?P<var>\D.*) *= *(?P<begin>\d+) to (?P<end>\d+) do\n(?P<statement>((pen|move|turn|put).*\n)+)end", r"for \g<var> in range(\g<begin>,\g<end>):\n\t\g<statement>\n",text))

@@ -1,23 +1,20 @@
-STEPS = 65
-ANGLE = 44
 for X=0 to 10 do
   pen up
-  move(STEPS, ANGLE)
+  move(65, 44)
   pen down
-  move(STEPS, ANGLE)
+  move(65, 44)
 end
 
-put(150, 150, ANGLE)
-ANGLE = 5
-for X=0 to STEPS do
+put(150, 150, 44)
+for X=0 to 65 do
   move forward
   move forward
   move forward
   move forward
-  turn cw(ANGLE)
+  turn cw(5)
   move backward
   move backward
   move backward
   move backward
-  turn ccw(ANGLE)
+  turn ccw(5)
 end
