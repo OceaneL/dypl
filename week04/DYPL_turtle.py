@@ -55,7 +55,6 @@ class DYPL_turtle:
         if (self.pen):
             done = 0.0
             n = round(abs(math.sin(math.radians(self.angle))) * steps + abs(math.cos(math.radians(self.angle))) * steps)
-            print (n, steps, self.angle)
             tmp_angle = self.angle
             # for i in range (0, n):
             while (done < n):
@@ -66,8 +65,7 @@ class DYPL_turtle:
                 self.application.setPixel(max(self.x, 0), max(self.y, 0))
                 done += abs(next_angle.x) + abs(next_angle.y)
     def parseExp(self, text):
-        re.DOTALL = True
-        text = (re.sub(r"for (?P<var>\D.*) *= *(?P<begin>\d+) to (?P<end>\d+) do\n(?P<statement>((pen|move|turn|put).*\n)+)end", r"for \g<var> in range(\g<begin>,\g<end>):\n\t\g<statement>\n",text))
+        text = (re.sub(r"for (?P<var>\D.*) *= *(?P<begin>\d+) to (?P<end>\d+) do\n(?P<statement>((pen|move|turn|put).*\n)+)end", f ,text))
         text = re.sub(r"(?P<inst1>(pen|move|turn)) (?P<inst2>\D+)",r"\g<inst1>_\g<inst2>",text)
         text = re.sub(r"(?P<inst1>(pen|move|turn|put))",r"self.\g<inst1>",text)
         text = re.sub(r"(?P<inst1>(pen|move)_\D+)(?P<esp>[\t|\n| ])",r"\g<inst1>()\g<esp>",text)
@@ -75,4 +73,8 @@ class DYPL_turtle:
         exec(text)
 
 def f(matchobj):
-    matchobj.group()r"for \g<var> in range(\g<begin>,\g<end>):\n\t\g<statement>\n"
+    s = "for "+matchobj.group('var')+" in range("+matchobj.group('begin')+","+matchobj.group('end')+"):\n"
+    s += re.sub(r"(?P<line>.*\n)", r"\t\g<line>",matchobj.group('statement'))
+    return s
+
+#r"for \g<var> in range(\g<begin>,\g<end>):\n\t\g<statement>\n"
