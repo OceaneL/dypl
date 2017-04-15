@@ -25,7 +25,8 @@ class DYPL_turtle:
             Angle(180, 0, -1),
             Angle(225, -1, -1),
             Angle(270, -1, 0),
-            Angle(315, -1, 1)
+            Angle(315, -1, 1),
+            Angle(360, 0, 1)
         ]
     def get_closest_angle(self, angle_):
         a = list(map(lambda x: abs(angle_ - x.angle), self.angles))
@@ -65,5 +66,5 @@ class DYPL_turtle:
         text = re.sub(r"(?P<inst1>(pen|move|turn)) (?P<inst2>\D+)",r"\g<inst1>_\g<inst2>",text)
         text = re.sub(r"(?P<inst1>(pen|move|turn|put))",r"self.\g<inst1>",text)
         text = re.sub(r"(?P<inst1>(pen|move)_\D+)(?P<esp>[\t|\n| ])",r"\g<inst1>()\g<esp>",text)
-        # print(text)
+        print(text)
         exec(text)
