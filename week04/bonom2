@@ -1,0 +1,5 @@
+pen down
+put(270, 350, 180)
+for var = 0 to 180 do
+move(6, 2)
+end
