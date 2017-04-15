@@ -68,3 +68,6 @@ class DYPL_turtle:
         text = re.sub(r"(?P<inst1>(pen|move)_\D+)(?P<esp>[\t|\n| ])",r"\g<inst1>()\g<esp>",text)
         print(text)
         exec(text)
+
+def f(matchobj):
+    matchobj.group()r"for \g<var> in range(\g<begin>,\g<end>):\n\t\g<statement>\n"
