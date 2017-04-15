@@ -1,41 +1,35 @@
 pen down
 put(150, 150, 45)
 move(300, 0)
-
 pen down
 put(150, 150, 0)
   move(50, 90)
   move(100, 90)
   move(50, 90)
   move(100, 90)
-
 pen down
 put(200, 200, 0)
 move(15, 90)
 move(15, 90)
 move(15, 90)
 move(15, 90)
-
 pen down
 put(100, 100, 45)
 for X=0 to 4 do
   move(50, 90)
 end
 move(50, 90)
-
 pen down
 put(175, 175, 90)
 move(10, 45)
 for X=0 to 4 do
    move(50, 90)
 end
-
 pen down
 put(150, 150, 0)
 for X=0 to 36 do
   move(200, 170)
 end
-
 pen down
 put(270, 150, 90)
 for v=0 to 180 do

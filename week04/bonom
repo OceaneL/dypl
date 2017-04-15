@@ -4,7 +4,6 @@ for var = 0 to 180 do
 move(4, 2)
 end
 put(200, 80, 180)
-2
 for var = 0 to 45 do
 move(1, 8)
 end
