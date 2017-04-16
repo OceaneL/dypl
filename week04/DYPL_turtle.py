@@ -14,7 +14,7 @@ class DYPL_turtle:
     def __init__(self, application):
         self.application = application
         self.pen = False
-        self.angle = 180
+        self.angle = 90
         self.x = 150
         self.y = 150
         self.angles = [
@@ -53,17 +53,37 @@ class DYPL_turtle:
     def move(self, steps, angle_):
         self.turn_cw(angle_)
         if (self.pen):
-            done = 0.0
-            n = round(abs(math.sin(math.radians(self.angle))) * steps + abs(math.cos(math.radians(self.angle))) * steps)
-            tmp_angle = self.angle
-            # for i in range (0, n):
-            while (done < n):
-                next_angle = self.get_closest_angle(tmp_angle)
-                tmp_angle += self.angle - next_angle.angle
-                self.x += next_angle.x
-                self.y += next_angle.y
-                self.application.setPixel(max(self.x, 0), max(self.y, 0))
-                done += abs(next_angle.x) + abs(next_angle.y)
+            rad = math.radians((self.angle + 270) % 360)
+            dx = round(math.cos(rad) * steps)
+            dy = round(math.sin(rad) * steps)
+            a = dy * 2
+            b = a - dx * 2
+            p = a - dx
+            dx_tmp = 0
+            dy_tmp = 0
+            while (dx_tmp < dx and dy_tmp < dy):
+                print(self.x, self.y)
+                if (p < 0):
+                    dx_tmp += 1
+                    self.x += 1
+                    p += a
+                    self.application.setPixel(max(self.x, 0), max(self.y, 0))
+                else:
+                    dy_tmp += 1
+                    self.y += 1
+                    p += b
+                    self.application.setPixel(max(self.x, 0), max(self.y, 0))
+            # done = 0.0
+            # n = round(abs(math.sin(math.radians(self.angle))) * steps + abs(math.cos(math.radians(self.angle))) * steps)
+            # tmp_angle = self.angle
+            # # for i in range (0, n):
+            # while (done < n):
+            #     next_angle = self.get_closest_angle(tmp_angle)
+            #     tmp_angle += self.angle - next_angle.angle
+            #     self.x += next_angle.x
+            #     self.y += next_angle.y
+            #     self.application.setPixel(max(self.x, 0), max(self.y, 0))
+            #     done += abs(next_angle.x) + abs(next_angle.y)
     def parseExp(self, text):
         text = (re.sub(r"for (?P<var>\D.*) *= *(?P<begin>\d+) to (?P<end>\d+) do\n(?P<statement>((pen|move|turn|put).*\n)+)end", f ,text))
         text = re.sub(r"(?P<inst1>(pen|move|turn)) (?P<inst2>\D+)",r"\g<inst1>_\g<inst2>",text)
